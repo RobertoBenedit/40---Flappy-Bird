@@ -43,6 +43,19 @@ window.addEventListener("keyup", function (e) {
     if (e.code === "Space") spacePressed = false;
 });
 
+// make it for movile devices
+window.addEventListener("touchstart", function (e) {
+    spacePressed = true;
+});
+window.addEventListener("touchend", function (e) {
+    spacePressed = false;
+});
+
+window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
 const collision = new Image();
 collision.src = "bang.png";
 function handleCollision() {
