@@ -1,12 +1,16 @@
+const birdSprite = new Image();
+birdSprite.src = "bird.png";
 class Bird {
     constructor(x, y, width, height) {
         this.x = 150;
         this.y = 200;
         this.velocityY = 0;
-        this.width = 20;
-        this.height = 20;
+        this.originalWidth = 941;
+        this.originalHeight = 680;
+        this.width = this.originalWidth / 20;
+        this.height = this.originalHeight / 20;
         this.gravity = 0.5;
-        // this.jump = -10;
+        this.frameX = 0;
     }
     update() {
         let curve = Math.sin(angle * 20);
@@ -25,11 +29,24 @@ class Bird {
         if (spacePressed && this.y > this.height + 3) this.jump();
     }
     draw() {
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // ctx.fillStyle = "red ";
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(
+            birdSprite,
+            this.frameX * this.originalWidth,
+            0,
+            this.originalWidth,
+            this.originalHeight,
+            this.x - 20,
+            this.y - 12,
+            this.width * 1.7,
+            this.height * 1.7
+        );
     }
     jump() {
         this.velocityY = -10;
+        if (this.frameX >= 3) this.frameX = 0;
+        else if (frame % 2 === 0) this.frameX++;
     }
 }
 const bird = new Bird();
